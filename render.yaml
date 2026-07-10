@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: rate-limiter-service
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_NAME
+        value: Rate Limiter Service
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        value: sqlite:///./rate_limiter.db
