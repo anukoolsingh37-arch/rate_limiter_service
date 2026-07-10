@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Limiter Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚦 Rate Limiter Service</h1>
+            <p>Manage API rate limits with the Token Bucket algorithm</p>
+        </header>
+
+        <main>
+            <!-- Create Client Section -->
+            <section class="card">
+                <h2>Create New Client</h2>
+                <form id="createClientForm">
+                    <div class="form-group">
+                        <label for="clientKey">Client Key</label>
+                        <input type="text" id="clientKey" required placeholder="e.g., user_123">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="capacity">Capacity (tokens)</label>
+                            <input type="number" id="capacity" required min="1" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="refillRate">Refill Rate (per second)</label>
+                            <input type="number" id="refillRate" required min="0.1" step="0.1" value="1">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Client</button>
+                </form>
+                <div id="createResult" class="result"></div>
+            </section>
+
+            <!-- Check Rate Limit Section -->
+            <section class="card">
+                <h2>Check Rate Limit</h2>
+                <form id="checkRateLimitForm">
+                    <div class="form-group">
+                        <label for="checkClientKey">Client Key</label>
+                        <input type="text" id="checkClientKey" required placeholder="Enter client key">
+                    </div>
+                    <div class="form-group">
+                        <label for="endpoint">Endpoint</label>
+                        <input type="text" id="endpoint" required placeholder="e.g., /api/products">
+                    </div>
+                    <button type="submit" class="btn btn-success">Check Limit</button>
+                </form>
+                <div id="checkResult" class="result"></div>
+            </section>
+
+            <!-- Clients List Section -->
+            <section class="card">
+                <h2>Clients</h2>
+                <button id="refreshClients" class="btn btn-secondary">Refresh List</button>
+                <div id="clientsList" class="list-container"></div>
+            </section>
+
+            <!-- Logs Section -->
+            <section class="card">
+                <h2>Rate Limit Logs</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="logClientKey">Filter by Client Key (optional)</label>
+                        <input type="text" id="logClientKey" placeholder="Enter client key">
+                    </div>
+                    <div class="form-group">
+                        <button id="refreshLogs" class="btn btn-secondary" style="margin-top: 28px;">Refresh Logs</button>
+                    </div>
+                </div>
+                <div id="logsList" class="list-container"></div>
+            </section>
+
+            <!-- Statistics Section -->
+            <section class="card">
+                <h2>Statistics</h2>
+                <div id="statsContainer" class="stats-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
